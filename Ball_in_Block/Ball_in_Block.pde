@@ -42,7 +42,8 @@ class Block{
     extraPower = int(random(0,2));
     
     for(int i =0; i<n; i++){
-      ball[i] = new Ball(this.position_x+(this.size/2),this.position_y+(this.size/2),random(10,this.size));
+      float size_ball = random(10,this.size);
+      ball[i] = new Ball(random(this.position_x+size_ball/2,this.position_x+this.size-size_ball/2),random(this.position_y+size_ball/2,this.position_y+this.size-size_ball/2),size_ball);
     }
   }
 
@@ -68,18 +69,19 @@ class Block{
   }
 }
 
-int n=2;
+int n=5;
 Block[] block = new Block[n];
 float area_block = 0;
 float area_ball = 0;
 float area = 0;
 int windowSize = 300;
+int index_block;
 
 void setup(){
   size(300,300);
   background(255);
   for(int i=0; i<n; i++){
-    block[i] = new Block(random(100,windowSize-50), random(100,windowSize-50), random(10,100));
+    block[i] = new Block(random(100,windowSize-70), random(100,windowSize-70), random(50,100));
   }
   for(int i=0; i<n; i++){
     block[i].draw();
@@ -92,61 +94,11 @@ void setup(){
   println("-------------------------------------------------");
 }
 
-/*void draw(){
+void draw(){
   delay(200);
   background(255,255,255);
-  for(Ball ball : ball){
-    ball.draw();
-  }
+  
   for(Block block : block){
     block.draw();
   }
 }
-
-void mouseClicked(){
-    check_circle = true;
-    index_block = block.length-1;
-    index_ball = ball.length-1;
-    for(index_block = block.length-1;index_block>-1;index_block--){
-      if(block[index_block].extraPower ==0 &&mouseX>block[index_block].position_x && mouseX< block[index_block].position_x+block[index_block].size && mouseY > block[index_block].position_y && mouseY< block[index_block].position_y+block[index_block].size){
-        println(block[index_block].extraPower);
-        for(int i=index_block; i<block.length-1;i++){
-          block[i] = block[i+1];
-        }
-        block = (Block[]) shorten(block);
-        area_block = 0;
-        area = 0;
-        for(int i=0; i<block.length; i++){
-          area_block += block[i].get_area();
-        }
-        area = area_block+area_ball;
-        println("area_block: "+area_block);
-        println("area_ball: "+area_ball);
-        println("Summary area: "+area);
-        println("-------------------------------------------------");
-        check_circle = false; 
-        break;
-      }
-    }
-    if(check_circle == true){
-      for(index_ball = ball.length-1;index_ball>-1;index_ball--){
-        if(ball[index_ball].extraPower == 0 && mouseX>ball[index_ball].position_x-(ball[index_ball].size/2) && mouseX< ball[index_ball].position_x+(ball[index_ball].size/2) && mouseY > ball[index_ball].position_y-(ball[index_ball].size/2) && mouseY< ball[index_ball].position_y+(ball[index_ball].size/2)){
-          for(int i=index_ball; i<ball.length-1;i++){
-            ball[i] = ball[i+1];
-          }
-          ball = (Ball[]) shorten(ball);
-          area_ball = 0;
-          area = 0;
-          for(int i=0; i<ball.length; i++){
-            area_ball += ball[i].get_area();
-          }
-          area = area_block+area_ball;
-          println("area_block: "+area_block);
-          println("area_ball: "+area_ball);
-          println("Summary area: "+area);
-          println("-------------------------------------------------");
-          break;
-        }
-      }
-    }
-}*/
